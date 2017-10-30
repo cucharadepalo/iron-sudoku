@@ -57,10 +57,3 @@ Sudoku.prototype.getWinner = function() {
 Sudoku.prototype.status = function(player) {
   return player.hits < 81;
 };
-
-function Player(name) {
-  this.name = 'Player1';
-  this.time = 0;
-  this.hits = 0;
-  this.board = [];
-}
