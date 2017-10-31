@@ -7,31 +7,11 @@ function Sudoku() {
 }
 
 Sudoku.prototype.generateBoard = function() {
-  this.board = [
-    [5,1,9,6,8,7,4,3,2], //0
-    [7,2,4,9,1,3,6,5,8], //1
-    [3,8,6,2,5,4,9,1,7], //2
-    [1,7,8,3,4,5,2,9,6], //3
-    [6,5,2,8,9,1,7,4,3], //4
-    [9,4,3,7,2,6,5,8,1], //5
-    [2,3,1,4,7,9,8,6,5], //6
-    [4,6,7,5,3,8,1,2,9], //7
-    [8,9,5,1,6,2,3,7,0]  //8
-  ];
+  this.board = predefinedBoards[0];
 };
 
 Sudoku.prototype.solveBoard = function() {
-  this.board = [
-    [5,1,9,6,8,7,4,3,2], //0
-    [7,2,4,9,1,3,6,5,8], //1
-    [3,8,6,2,5,4,9,1,7], //2
-    [1,7,8,3,4,5,2,9,6], //3
-    [6,5,2,8,9,1,7,4,3], //4
-    [9,4,3,7,2,6,5,8,1], //5
-    [2,3,1,4,7,9,8,6,5], //6
-    [4,6,7,5,3,8,1,2,9], //7
-    [8,9,5,1,6,2,3,7,0]  //8
-  ];
+  this.board = predefinedSolved[0];
 };
 
 Sudoku.prototype.push = function(e, index) {
@@ -56,4 +36,26 @@ Sudoku.prototype.getWinner = function() {
 
 Sudoku.prototype.status = function(player) {
   return player.hits < 81;
+};
+
+Sudoku.prototype.paintBoard = function() {
+  var container = $("#sudoku-board"),
+      tableBody = $("<tbody></tbody>"),
+      index = {x:0, y:0, b:0};
+
+  for (var i = 0; i < this.size; i++) {
+    var tableRow = $("<tr></tr>")
+                  .attr('index', i);
+    for (var j = 0; j < this.size; j++) {
+      index = {x:i, y:j, b: x-x%this.boxSize};
+      var tableCell = $("<td></td>")
+                      .attr("x", index.x)
+                      .attr("y", index.y)
+                      .attr("b", index.b+''+j-j%this.boxSize)
+                      .html("<input type='text' value='" + this.board[i][j] + "'>");
+      tableCell.appendTo(tableRow);
+    }
+    tableRow.appendTo(tableBody);
+  }
+  tableBody.appendTo(container);
 };
