@@ -11,7 +11,7 @@ Sudoku.prototype.generateBoard = function() {
 };
 
 Sudoku.prototype.solveBoard = function() {
-  this.board = predefinedSolved[0];
+  this.solvedBoard = predefinedSolved[0];
 };
 
 Sudoku.prototype.push = function(e, index) {
@@ -41,18 +41,34 @@ Sudoku.prototype.status = function(player) {
 Sudoku.prototype.paintBoard = function() {
   var container = $("#sudoku-board"),
       tableBody = $("<tbody></tbody>"),
-      index = {x:0, y:0, b:0};
+      // definimos indices para poner en las celdas
+      index = {xindex:0, yindex:0, box:0};
 
   for (var i = 0; i < this.size; i++) {
+    // Creamos la fila
     var tableRow = $("<tr></tr>")
                   .attr('index', i);
     for (var j = 0; j < this.size; j++) {
-      index = {x:i, y:j, b: x-x%this.boxSize};
+      // ajustamos los indices
+      index = {xindex:i, yindex:j, box: i - i % this.boxSize};
+      var boxCol = j - j % this.boxSize;
+      // Si el valor es 0 no lo pintamos y si tiene valor deshabilitamos el input
+      var cellInput = $("<input></input>").attr("type", "text");
+      if (this.board[i][j] === 0) {
+        cellInput.val('');
+        cellInput.addClass('editable');
+      } else {
+        cellInput.val(this.board[i][j]);
+        cellInput.prop("disabled", true);
+      }
+      var cellValue = this.board[i][j] !== 0 ? this.board[i][j] : '';
       var tableCell = $("<td></td>")
-                      .attr("x", index.x)
-                      .attr("y", index.y)
-                      .attr("b", index.b+''+j-j%this.boxSize)
-                      .html("<input type='text' value='" + this.board[i][j] + "'>");
+                      .attr("xindex", index.xindex)
+                      .attr("yindex", index.yindex)
+                      .attr("box", index.box + '' + boxCol)
+                      .append(cellInput);
+                      //.html("<input type='text' value='" + cellValue + "'>");
+
       tableCell.appendTo(tableRow);
     }
     tableRow.appendTo(tableBody);
