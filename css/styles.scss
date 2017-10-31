@@ -1,6 +1,11 @@
 $cell-size: 1.5em;
 $outer-border: 4px solid #888;
 $inner-border: 2px solid #888;
+$fixed-input-color: #64CCCB;
+$guessed-input-color: #555;
+$light-bg: #F5F5F5;
+$focus-bg: #D1D1D1;
+$cell-padding: $cell-size/6;
 
 body {
   margin: 0;
@@ -18,16 +23,43 @@ h1 {
   border-collapse: collapse;
   table-layout: fixed;
   margin: auto;
-}
-#sudoku-board td:nth-child(3n) {
-  border-right: $inner-border;
-}
-#sudoku-board tr:nth-child(3n) td {
-  border-bottom: $inner-border;
-}
-#sudoku-board input {
-  text-align: center;
-  font-size: $cell-size;
-  width: $cell-size;
-  height: $cell-size;
+
+  td {
+    //box-sizing: border-box;
+    padding: $cell-padding;
+  }
+
+  td:nth-child(3n) {
+    border-right: $inner-border;
+  }
+
+  tr:nth-child(3n) td {
+    border-bottom: $inner-border;
+  }
+
+  input {
+    background: $light-bg;
+    border: none;
+    border-radius: 3px;
+    color: $guessed-input-color;
+    height: $cell-size;
+    font-size: $cell-size;
+    font-weight: 500;
+    text-align: center;
+    width: $cell-size;
+
+    &:disabled {
+      color: $fixed-input-color;
+    }
+
+    // &:focus {
+    //   background: $focus-bg;
+    // }
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
