@@ -34,8 +34,8 @@ h1 {
   text-align: center;
 }
 *::selection {
-  background: transparent;
-  color: $more-highlight;
+  background: $more-highlight;
+  color: $general-bg;
 }
 #sudoku-board {
   border: $outer-border-style;
@@ -95,9 +95,24 @@ h1 {
     }
   }
 
+  .has-error {
+    color: red;
+    animation-name: blinker;
+	  animation-duration: .6s;
+	  animation-iteration-count: 3;
+	  animation-timing-function:ease-in-out;
+	  animation-direction: alternate;
+    animation-fill-mode: backwards;
+  }
+
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+}
+
+@-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
 }

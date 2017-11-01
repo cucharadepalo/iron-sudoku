@@ -17,8 +17,8 @@ function init(){
 		var element = $(e.target);
 		var xindex = $(e.target).parent().attr('xindex');
 		var yindex = $(e.target).parent().attr('yindex');
+		//game.push(element, player);
 		game.checkCell(element, player);
-		game.push(element, player);
 	});
 };
 

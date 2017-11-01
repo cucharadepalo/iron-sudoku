@@ -10,65 +10,60 @@ function Sudoku() {
 }
 
 Sudoku.prototype.generateBoard = function() {
-  this.board = predefinedBoards[2];
+  this.board = predefinedBoards[3];
 };
 
 Sudoku.prototype.solveBoard = function() {
-  this.solvedBoard = predefinedSolved[2];
-};
-
-Sudoku.prototype.push = function(e, player) {
-  var x = e.parent().attr('xindex');
-  var y = e.parent().attr('yindex');
-  var number = _.toNumber(e.val());
-  // No admitimos valores fuera del rango
-  number > 0 && number < 10 ? number : number = 0;
-  // metemos el valor en el board del player
-  player.board[x][y] = number;
-  // Devolvemos el valor corregido al input
-  var formated = number == 0 ? '' : number;
-  $(e).val(formated);
-};
-
-// Este método es superfluo, el método push ya elimina del array
-// los valores reemplazados
-Sudoku.prototype.pop = function(e, player) {
-  var x = e.parent().attr('xindex');
-  var y = e.parent().attr('yindex');
-  // borramos el valor del board del player
-  _.fill(player.board[x], 0, y, y + 1);
+  this.solvedBoard = predefinedSolved[3];
 };
 
 Sudoku.prototype.checkCell = function(e, player) {
   var x = e.parent().attr('xindex');
   var y = e.parent().attr('yindex');
   var number = _.toNumber(e.val());
+  // No admitimos valores fuera del rango
+  number > 0 && number < 10 ? number : number = 0;
+  // recogemos el valor previo para aumentar o reducir los hits
   var prevNumber = player.board[x][y];
   var rightNumber = this.solvedBoard[x][y];
-  var finished = false;
   // si el valor es correcto aumentamos el contador de hits
   if (number == rightNumber) {
     prevNumber == 0 || prevNumber != rightNumber ? player.hits++ : player.hits;
+    // Quitamos la clase de error
+    $(e).removeClass('has-error').attr('g', false);
   } else {
     prevNumber == rightNumber ? player.hits-- : player.hits;
+    // Le ponemos un atributo para marcarlo como errado
+    $(e).attr('g','0');
   }
-  this.status(player);
+  // metemos el valor en el board del player
+  player.board[x][y] = number;
+  // Si el player board está lleno llamamos a status
+  var flatBoard = player.flattenBoard();
+  if (flatBoard.indexOf(0) == -1) this._status(player);
+  // Devolvemos el valor corregido al input
+  var formated = number == 0 ? '' : number;
+  $(e).val(formated);
+};
+
+Sudoku.prototype._status = function(player) {
+  var finished = false;
+  // Comprobamos primero los hits y luego el tablero y si no
+  // destacamos los errores
+  if (player.hits == this.rightHits) finished = this.checkBoard(player);
+  finished ? console.log('Game Finished') : this.highlightErrors();
+};
+
+Sudoku.prototype.highlightErrors = function() {
+  $("#sudoku-board input[g='0']").addClass('has-error');
 };
 
 Sudoku.prototype.checkBoard = function(player) {
-  return player.board == this.solvedBoard;
+  return _.isEqual(player.board, this.solvedBoard);
 };
 
 Sudoku.prototype.getWinner = function() {
   return this.players.player1.time < this.players.player2.time ? this.players.player1.name + 'wins' : this.players.player2.name + 'wins';
-};
-
-Sudoku.prototype.status = function(player) {
-  var finished = false;
-  if (player.hits == this.rightHits) {
-    finished = this.checkBoard;
-  }
-  finished ? alert('Finished') : console.log('Still in progress');
 };
 
 Sudoku.prototype.paintBoard = function() {
@@ -111,3 +106,26 @@ Sudoku.prototype.paintBoard = function() {
   }
   tableBody.appendTo(container);
 };
+
+// // Deprecada!. El push se hace en checkCell
+// Sudoku.prototype.push = function(e, player) {
+//   var x = e.parent().attr('xindex');
+//   var y = e.parent().attr('yindex');
+//   var number = _.toNumber(e.val());
+//   // No admitimos valores fuera del rango
+//   number > 0 && number < 10 ? number : number = 0;
+//   // metemos el valor en el board del player
+//   player.board[x][y] = number;
+//   // Devolvemos el valor corregido al input
+//   var formated = number == 0 ? '' : number;
+//   $(e).val(formated);
+// };
+//
+// // Este método es superfluo, el método push ya elimina del array
+// // los valores reemplazados
+// Sudoku.prototype.pop = function(e, player) {
+//   var x = e.parent().attr('xindex');
+//   var y = e.parent().attr('yindex');
+//   // borramos el valor del board del player
+//   _.fill(player.board[x], 0, y, y + 1);
+// };

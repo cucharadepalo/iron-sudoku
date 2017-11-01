@@ -6,9 +6,13 @@ function Player(name) {
 }
 
 Player.prototype.getInitialHits = function() {
-  var flatBoard = _.flatten(this.board);
+  var flatBoard = this.flattenBoard();
   var hits = flatBoard.reduce(function(a, e) {
     return (e !== 0) ? a + 1 : a;
   }, 0);
   return hits;
+};
+
+Player.prototype.flattenBoard = function() {
+  return _.flatten(this.board);
 };
