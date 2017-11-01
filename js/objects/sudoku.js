@@ -19,11 +19,17 @@ Sudoku.prototype.push = function(e, player) {
   var x = e.parent().attr('xindex');
   var y = e.parent().attr('yindex');
   var number = _.toNumber(e.val());
+  // No admitimos valores fuera del rango
+  number > 0 && number < 10 ? number : number = 0;
   // metemos el valor en el board del player
-  //_.fill(player.board[x], number, y, y + 1);
-  player.board[x].splice(y, 1, number);
+  player.board[x][y] = number;
+  // Devolvemos el valor corregido al input
+  var formated = number == 0 ? '' : number;
+  $(e).val(formated);
 };
 
+// Este método es superfluo, el método push ya elimina del array
+// los valores reemplazados
 Sudoku.prototype.pop = function(e, player) {
   var x = e.parent().attr('xindex');
   var y = e.parent().attr('yindex');
@@ -35,8 +41,21 @@ Sudoku.prototype.checkCell = function(e, player) {
   var x = e.parent().attr('xindex');
   var y = e.parent().attr('yindex');
   var number = _.toNumber(e.val());
+  var prevNumber = player.board[x][y];
+  var rightNumber = this.solvedBoard[x][y];
+  var finished = false;
   // si el valor es correcto aumentamos el contador de hits
-  number == this.solvedBoard[x][y] ? player.hits++ : player.hits ;
+  if (number == rightNumber) {
+    prevNumber == 0 || prevNumber != rightNumber ? player.hits++ : player.hits;
+  } else {
+    prevNumber == rightNumber ? player.hits-- : player.hits;
+  }
+  if (player.hits == 81) {
+    finished = this.checkBoard;
+  }
+  if (finished) {
+    alert('Terminaste');
+  }
 };
 
 Sudoku.prototype.checkBoard = function(player) {
@@ -66,7 +85,10 @@ Sudoku.prototype.paintBoard = function() {
       index = {xindex:i, yindex:j, box: i - i % this.boxSize};
       var boxCol = j - j % this.boxSize;
       // Si el valor es 0 no lo pintamos y si tiene valor deshabilitamos el input
-      var cellInput = $("<input></input>").attr("type", "number");
+      var cellInput = $("<input></input>")
+                      .attr("type", "number")
+                      .attr("min", 1)
+                      .attr("max", 9);
       if (this.board[i][j] === 0) {
         cellInput.val('');
         cellInput.addClass('editable');

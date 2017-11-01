@@ -12,12 +12,11 @@ function init(){
 	// valores descubiertos del board inicial
 	player1.hits = player1.getInitialHits();
 
-	$('#sudoku-board input').on('keypress', function(e){
+	$('#sudoku-board input').on('focusout', function(e){
 		game.turn === 1 ? player = player1 : player = player2;
 		var element = $(e.target);
 		var xindex = $(e.target).parent().attr('xindex');
 		var yindex = $(e.target).parent().attr('yindex');
-		console.log(xindex, yindex);
 		game.checkCell(element, player);
 		game.push(element, player);
 	});
