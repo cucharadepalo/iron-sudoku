@@ -1,6 +1,6 @@
 function Player(name) {
   this.name = name;
-  this.time = 0;
+  this.time = '00:00';
   this.hits = 0;
   this.board = [];
 }

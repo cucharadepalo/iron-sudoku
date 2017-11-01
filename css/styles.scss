@@ -10,24 +10,61 @@ $cell-size: 1.5em;
 $cell-padding: $cell-size/6;
 $outer-border-style: 4px solid lighten($general-bg, 3%);
 $inner-border-style: 4px solid lighten($general-bg, 3%);
+$mono: 'Source Code Pro', monospace;
+$regular: 'Helvetica Neue', arial, sans-serif;
 
 body {
   background: $general-bg;
   color: $text-color;
-  font-family: 'Helvetica Neue', arial, sans-serif;
+  font-family: $regular;
   font-size: 120%;
   line-height: 1;
   margin: 0;
   padding: 0;
+  //font-smooth: never;
+  //-webkit-font-smoothing: none;
 }
 body > footer {
-  bottom: 10px;
-  right: 10px;
-  font-family: 'Source Code Pro', monospace;
+  bottom: 1rem;
+  right: 1rem;
+  text-align: right;
+  font-family: $mono;
   font-size: 60%;
   position: absolute;
 
   img { vertical-align: middle;}
+}
+.hidden {
+  visibility: hidden;
+}
+.shown {
+  visibility: visible;
+}
+#timer {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: $mono;
+  font-size: 2em;
+  text-align: right;
+}
+#player {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-family: $regular;
+  color: white;
+  font-size: 2em;
+  font-weight: 700;
+}
+#title {
+  font-family: $mono;
+  position: absolute;
+
+  &.small {
+    bottom: 1rem;
+    left: 1rem;
+  }
 }
 h1 {
   font-size: $cell-size*2;
@@ -41,7 +78,7 @@ h1 {
   border: $outer-border-style;
   border-collapse: collapse;
   table-layout: fixed;
-  margin: $cell-size auto;
+  margin: 6rem auto;
 
   td {
     //box-sizing: border-box;

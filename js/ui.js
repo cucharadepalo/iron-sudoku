@@ -1,6 +1,15 @@
 //For debugging purposes
 var game, player1, player2;
 
+function secondsToTime(secs){
+  var hours = Math.floor(secs / (60 * 60));
+  var divisor_for_minutes = secs % (60 * 60);
+  var minutes = Math.floor(divisor_for_minutes / 60);
+  var divisor_for_seconds = divisor_for_minutes % 60;
+  var seconds = Math.ceil(divisor_for_seconds);
+  return minutes + ":" + seconds; 
+}
+
 function init(){
 	game = new Sudoku;
   game.generateBoard();

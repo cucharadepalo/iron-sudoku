@@ -5,8 +5,8 @@ function Sudoku() {
   this.digits = [1,2,3,4,5,6,7,8,9];
   this.board = [];
   this.solvedBoard = [];
-  this.turn = 1;
-  var player = this.turn === 1 ? player = player1 : player = player2;
+  this.turn = 0;
+  //var player = this.turn === 1 ? player = player1 : player = player2;
 }
 
 Sudoku.prototype.generateBoard = function() {
@@ -67,6 +67,13 @@ Sudoku.prototype.getWinner = function() {
 };
 
 Sudoku.prototype.paintBoard = function() {
+  var playerLabel = $("<div id='player'></div>")
+                    .addClass('shown')
+                    .text("Player 1"),
+      timerLabel = $("<div id='timer'></div>")
+                    .addClass('shown')
+                    .text("00:00");
+
   var container = $("#sudoku-board"),
       tableBody = $("<tbody></tbody>"),
       // definimos indices para poner en las celdas
@@ -105,27 +112,17 @@ Sudoku.prototype.paintBoard = function() {
     tableRow.appendTo(tableBody);
   }
   tableBody.appendTo(container);
+  playerLabel.appendTo("body");
+  timerLabel.appendTo("body");
 };
 
-// // Deprecada!. El push se hace en checkCell
-// Sudoku.prototype.push = function(e, player) {
-//   var x = e.parent().attr('xindex');
-//   var y = e.parent().attr('yindex');
-//   var number = _.toNumber(e.val());
-//   // No admitimos valores fuera del rango
-//   number > 0 && number < 10 ? number : number = 0;
-//   // metemos el valor en el board del player
-//   player.board[x][y] = number;
-//   // Devolvemos el valor corregido al input
-//   var formated = number == 0 ? '' : number;
-//   $(e).val(formated);
-// };
-//
-// // Este método es superfluo, el método push ya elimina del array
-// // los valores reemplazados
-// Sudoku.prototype.pop = function(e, player) {
-//   var x = e.parent().attr('xindex');
-//   var y = e.parent().attr('yindex');
-//   // borramos el valor del board del player
-//   _.fill(player.board[x], 0, y, y + 1);
-// };
+Sudoku.prototype.initialize = function() {
+
+};
+
+Sudoku.prototype.timer = function() {
+  if (this.turn > 0 ) {
+    this.seconds++;
+    $('.time').text( '' + this.seconds );
+  }
+};
