@@ -1,18 +1,20 @@
 function Sudoku() {
   this.size = 9;
   this.boxSize = 3;
+  this.rightHits = this.size * this.size;
   this.digits = [1,2,3,4,5,6,7,8,9];
   this.board = [];
   this.solvedBoard = [];
   this.turn = 1;
+  var player = this.turn === 1 ? player = player1 : player = player2;
 }
 
 Sudoku.prototype.generateBoard = function() {
-  this.board = predefinedBoards[0];
+  this.board = predefinedBoards[2];
 };
 
 Sudoku.prototype.solveBoard = function() {
-  this.solvedBoard = predefinedSolved[0];
+  this.solvedBoard = predefinedSolved[2];
 };
 
 Sudoku.prototype.push = function(e, player) {
@@ -50,12 +52,7 @@ Sudoku.prototype.checkCell = function(e, player) {
   } else {
     prevNumber == rightNumber ? player.hits-- : player.hits;
   }
-  if (player.hits == 81) {
-    finished = this.checkBoard;
-  }
-  if (finished) {
-    alert('Terminaste');
-  }
+  this.status(player);
 };
 
 Sudoku.prototype.checkBoard = function(player) {
@@ -67,7 +64,11 @@ Sudoku.prototype.getWinner = function() {
 };
 
 Sudoku.prototype.status = function(player) {
-  return player.hits < 81;
+  var finished = false;
+  if (player.hits == this.rightHits) {
+    finished = this.checkBoard;
+  }
+  finished ? alert('Finished') : console.log('Still in progress');
 };
 
 Sudoku.prototype.paintBoard = function() {
