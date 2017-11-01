@@ -1,7 +1,7 @@
-#Sudoku 1vs1
+# Sudoku 1vs1
 La idea es programar un generador de sudokus con tres niveles de dificultad y medir el tiempo que tardan dos jugadores diferentes en resolverlo para calcular un ganador.
 
-##Objetos del Sudoku
+## Objetos del Sudoku
 
 + **cells** = un número para indicar el tamaño del sudoku. Por defecto, el estandar es 9, una tabla de 9x9 (81 números) pero estaría bien que fuera capaz de condicionar el sudoku que se monta cambiando este número.
 + **boxSize** = el número que celdas que tiene cada una de las "cajas" en las que tampoco se puden repetir los números.
@@ -15,7 +15,7 @@ La idea es programar un generador de sudokus con tres niveles de dificultad y me
 + **player2Time** = para almacenar el tiempo del jugador 2
 
 
-##Métodos
+## Métodos
 + **shuffle** = genera un nuevo array de sudoku con las particularidades especificadas arriba
 + **push** = inserta el valor introducido por el player en su array
 + **pop** = borra del array del player valores introducidos
@@ -26,7 +26,7 @@ La idea es programar un generador de sudokus con tres niveles de dificultad y me
 + **toggleTimer** = para poder parar/lanzar el cronómetro si hay que ir a mear
 
 
-##Bonus
+## Bonus
 + Una funcionalidad para resaltar los errores comparando el array sudoku con el array playerSudoku.
 + Poder elegir entre hacer un sudoku de números o de otra cosa (lo que lo dificultaría), por ejemplo colores (cada color asociado a un número)
 + Almacenar históricos de tiempos por niveles
