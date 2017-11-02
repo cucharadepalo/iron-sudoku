@@ -6,15 +6,60 @@ function Sudoku() {
   this.board = [];
   this.solvedBoard = [];
   this.turn = 0;
-  //var player = this.turn === 1 ? player = player1 : player = player2;
 }
 
+Sudoku.prototype.initialize = function() {
+  this.turn++;
+  this.generateBoard();
+  this.solveBoard();
+	this.transition();
+
+  player2 = new Player(globals.players.player2.name);
+};
+
+Sudoku.prototype.transition = function() {
+  if (this.turn == 1) {
+    player1 = new Player(globals.players.player1.name);
+    player1.board = game.board;
+    player1.hits = player1.getInitialHits();
+    player = player1;
+  } else if (this.turn == 2) {
+    player2 = new Player(globals.players.player1.name);
+    player2.board = game.board;
+    player2.hits = player2.getInitialHits();
+    player = player2;
+  } else {
+    // Code for finished game?
+  }
+  var literal = this.turn == 1 ? globals.messages.firstPlayer : globals.messages.otherPlayers ;
+  var mainMessage = $('<div></div>')
+                    .addClass('main-message')
+                    .html('<p><span class="player-label">' + player.name + ': </span>' + literal + '</p>');
+  var mainAction = $('<div></div>')
+                    .addClass('main-action')
+                    .html('<img src="./img/countdown.gif" width="150" height="80" alt="Countdown" class="countdown">');
+
+  $('body').prepend(mainMessage, mainAction);
+  setTimeout(function(){
+    mainMessage.remove();
+    mainAction.remove();
+    game.paintBoard();
+    $('#sudoku-board input').on('focusout', function(e){
+      var element = $(e.target);
+      var xindex = $(e.target).parent().attr('xindex');
+      var yindex = $(e.target).parent().attr('yindex');
+      //game.push(element, player);
+      game.checkCell(element, player);
+    });
+  }, 3000);
+};
+
 Sudoku.prototype.generateBoard = function() {
-  this.board = predefinedBoards[3];
+  this.board = predefinedBoards[2];
 };
 
 Sudoku.prototype.solveBoard = function() {
-  this.solvedBoard = predefinedSolved[3];
+  this.solvedBoard = predefinedSolved[2];
 };
 
 Sudoku.prototype.checkCell = function(e, player) {
@@ -68,14 +113,17 @@ Sudoku.prototype.getWinner = function() {
 };
 
 Sudoku.prototype.paintBoard = function() {
+  //var playerId = 'player' + this.turn;
+  //var playerName = window[playerId].name;
+  //var playerTime = window[playerId].time;
   var playerLabel = $("<div id='player'></div>")
                     .addClass('shown')
-                    .text("Player 1"),
+                    .text(player.name),
       timerLabel = $("<div id='timer'></div>")
                     .addClass('shown')
-                    .text("00:00");
+                    .text(player.time);
 
-  var container = $("#sudoku-board"),
+  var container = $("<table id='sudoku-board'></table>"),
       tableBody = $("<tbody></tbody>"),
       // definimos indices para poner en las celdas
       index = {xindex:0, yindex:0, box:0};
@@ -113,12 +161,9 @@ Sudoku.prototype.paintBoard = function() {
     tableRow.appendTo(tableBody);
   }
   tableBody.appendTo(container);
+  container.appendTo("body");
   playerLabel.appendTo("body");
   timerLabel.appendTo("body");
-};
-
-Sudoku.prototype.initialize = function() {
-
 };
 
 Sudoku.prototype.timer = function() {

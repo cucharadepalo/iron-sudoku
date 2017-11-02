@@ -21,8 +21,6 @@ body {
   line-height: 1;
   margin: 0;
   padding: 0;
-  //font-smooth: never;
-  //-webkit-font-smoothing: none;
 }
 body > footer {
   bottom: 1rem;
@@ -48,24 +46,114 @@ body > footer {
   font-size: 2em;
   text-align: right;
 }
+.player-label {
+  font-family: $regular;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
 #player {
+  @extend .player-label;
   position: absolute;
   left: 1rem;
   top: 1rem;
-  font-family: $regular;
-  color: white;
-  font-size: 2em;
-  font-weight: 700;
 }
 #title {
   font-family: $mono;
+  font-weight: 400;
+  margin: 0;
   position: absolute;
+  text-align: center;
+  transition: left .3s linear, top .5s ease .3s, font-size .5s ease .3s;
 
   &.small {
-    bottom: 1rem;
     left: 1rem;
+    font-size: 1rem;
+    top: calc(100% - 3rem);
+    transform: none;
+  }
+  &.big {
+    font-size: 3em;
+    text-align: center;
+    left: 50%;
+    top: 4rem;
+    transform: translateX(-50%);
   }
 }
+.main-message {
+  left: 50%;
+  width: 60%;
+  max-width: 640px;
+  position: absolute;
+  transform: translateX(-50%);
+  top: 9rem;
+
+  p {
+    font-family: $mono;
+    font-size: 2.5rem;
+    text-align: center;
+  }
+}
+.main-action {
+  left: 50%;
+  position: absolute;
+  top: 20rem;
+  transform: translateX(-50%);
+}
+#player-inputs {
+  div {
+    min-width: 200px;
+    width: calc(50% - 4rem);
+    float: left;
+    padding: 2rem;
+  }
+}
+.standard-label {
+  font-family: $mono;
+  font-size: .75em;
+}
+.big-input {
+  background: transparent;
+  border: none;
+  border-bottom: $outer-border-style;
+  color: white;
+  font-family: $regular;
+  font-size: 2.5rem;
+  padding: 1rem 0;
+  display: block;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+.countdown {
+  display: block;
+  margin: 2rem auto;
+}
+.big-button {
+  @extend .countdown;
+  background: $highlight;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: $regular;
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-transform: uppercase;
+
+  &:hover {
+    background: darken($highlight, 10%);
+  }
+  &:focus {
+    outline: none;
+    background-color: $more-highlight;
+    color: $general-bg;
+  }
+}
+
 h1 {
   font-size: $cell-size*2;
   text-align: center;
