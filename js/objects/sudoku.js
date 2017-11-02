@@ -6,6 +6,8 @@ function Sudoku() {
   this.board = [];
   this.solvedBoard = [];
   this.turn = 0;
+  this.seconds = 0;
+  this.chrono;
 }
 
 Sudoku.prototype.initialize = function() {
@@ -40,13 +42,14 @@ Sudoku.prototype.transition = function() {
                     .html('<img src="./img/countdown.gif" width="150" height="80" alt="Countdown" class="countdown">');
 
   $('body').prepend(mainMessage, mainAction);
+  var t = this;
   setTimeout(function(){
     mainMessage.remove();
     mainAction.remove();
     game.paintBoard();
     // Chrono
-    setInterval(function(){
-      player.timer();
+    t.chrono = setInterval(function(){
+      t.timer();
     },1000);
     // Input event actions
     $('#sudoku-board input').on('focusout', function(e){
@@ -102,7 +105,20 @@ Sudoku.prototype._status = function(player) {
   // Comprobamos primero los hits y luego el tablero y si no
   // destacamos los errores
   if (player.hits == this.rightHits) finished = this.checkBoard(player);
-  finished ? console.log('Game Finished') : this.highlightErrors();
+  if (finished && this.turn == 1) {
+    clearInterval(this.chrono);
+    console.log('Game Finished');
+  } else if (finished && this.turn == 2) {
+
+  } else {
+    this.highlightErrors();
+  }
+};
+
+Sudoku.prototype.timer = function() {
+  this.seconds++;
+  var time = secondsToTime(this.seconds);
+  $("#timer").text(time);
 };
 
 Sudoku.prototype.highlightErrors = function() {
