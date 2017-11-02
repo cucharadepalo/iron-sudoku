@@ -3,6 +3,7 @@ function Player(name) {
   this.time = '00:00';
   this.hits = 0;
   this.board = [];
+  this.seconds = 0;
 }
 
 Player.prototype.getInitialHits = function() {
@@ -15,4 +16,10 @@ Player.prototype.getInitialHits = function() {
 
 Player.prototype.flattenBoard = function() {
   return _.flatten(this.board);
+};
+
+Player.prototype.timer = function() {
+  this.seconds++;
+  var time = secondsToTime(this.seconds);
+  $("#timer").text(time);
 };
