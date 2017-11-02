@@ -9,5 +9,8 @@ var globals = {
     congrats : "Congratulations!",
     time : "Your time: ",
     winner : "And the winner is …",
+    finish : "Well done!",
+    error : "Ups, looks like something is wrong",
+    draw : "It's a draw. That's awesome!"
   }
 };

@@ -1,5 +1,5 @@
 //For debugging purposes
-//var game, player, player1, player2;
+var game, player, player1, player2;
 
 function secondsToTime(secs){
   var hours = Math.floor(secs / (60 * 60));
@@ -14,6 +14,13 @@ function secondsToTime(secs){
   var formated = minutes + ':' +  seconds;
   return minutes + ":" + seconds;
 }
+
+function consoleMsg(msg) {
+  $('.console').text(msg);
+  setTimeout(function(){
+    $('.console').empty();
+  },3000);
+};
 
 function init(){
   // Start screen
@@ -45,9 +52,6 @@ function init(){
     $('#title').removeClass('big').addClass('small');
     // Game creation
     game = new Sudoku;
-    // Screen cleaning
-    namesContainer.remove();
-    $(e.target).remove();
     // Initialize game
     game.initialize();
   });
