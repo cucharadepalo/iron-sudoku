@@ -26,6 +26,8 @@ Sudoku.prototype.checkCell = function(e, player) {
   // recogemos el valor previo para aumentar o reducir los hits
   var prevNumber = player.board[x][y];
   var rightNumber = this.solvedBoard[x][y];
+  // metemos el valor en el board del player
+  player.board[x][y] = number;
   // si el valor es correcto aumentamos el contador de hits
   if (number == rightNumber) {
     prevNumber == 0 || prevNumber != rightNumber ? player.hits++ : player.hits;
@@ -36,14 +38,13 @@ Sudoku.prototype.checkCell = function(e, player) {
     // Le ponemos un atributo para marcarlo como errado
     $(e).attr('g','0');
   }
-  // metemos el valor en el board del player
-  player.board[x][y] = number;
   // Si el player board está lleno llamamos a status
   var flatBoard = player.flattenBoard();
   if (flatBoard.indexOf(0) == -1) this._status(player);
   // Devolvemos el valor corregido al input
   var formated = number == 0 ? '' : number;
   $(e).val(formated);
+
 };
 
 Sudoku.prototype._status = function(player) {
@@ -123,6 +124,6 @@ Sudoku.prototype.initialize = function() {
 Sudoku.prototype.timer = function() {
   if (this.turn > 0 ) {
     this.seconds++;
-    $('.time').text( '' + this.seconds );
+    $("#time").text( '' + this.seconds );
   }
 };

@@ -7,7 +7,7 @@ function secondsToTime(secs){
   var minutes = Math.floor(divisor_for_minutes / 60);
   var divisor_for_seconds = divisor_for_minutes % 60;
   var seconds = Math.ceil(divisor_for_seconds);
-  return minutes + ":" + seconds; 
+  return minutes + ":" + seconds;
 }
 
 function init(){
@@ -22,7 +22,8 @@ function init(){
 	player1.hits = player1.getInitialHits();
 
 	$('#sudoku-board input').on('focusout', function(e){
-		game.turn === 1 ? player = player1 : player = player2;
+		//game.turn === 1 ? player = player1 : player = player2;
+    player = player1;
 		var element = $(e.target);
 		var xindex = $(e.target).parent().attr('xindex');
 		var yindex = $(e.target).parent().attr('yindex');
