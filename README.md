@@ -6,6 +6,8 @@ Sudoku is traditionally a solitary game. Sudo q aims to engage players in compet
 
 [Try the demo!](https://cucharadepalo.github.io/sudo-q/)
 
+Tip: type `sudo q`
+
 
 ## Next steps
 + Finish the sudoku board generator (at the moment works with predefined puzzles)
