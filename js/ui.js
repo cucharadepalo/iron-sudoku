@@ -51,7 +51,7 @@ function init(){
     // Title transition
     $('#title').removeClass('big').addClass('small');
     // Game creation
-    game = new Sudoku(3);
+    game = new Sudoku();
     // Initialize game
     game.initialize();
   });
