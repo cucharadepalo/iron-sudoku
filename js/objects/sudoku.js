@@ -63,10 +63,10 @@ Sudoku.prototype.transition = function() {
     // messages
     winner = this.getWinner();
     message = '<p>' + globals.messages.winner + '</p><p><span class="player-label">' + winner + '</span></p>';
-    action = '<p>Reload to play again</p>';
-    // action = $("<button id='start-button'>Start again</button>")
-    //          .addClass('big-button')
-    //          .attr('type', 'button');
+    //action = $('<p></p>').text('Reload to play again');
+    action = $("<button id='start-button' onClick='window.location.reload()'>Start again</button>")
+             .addClass('big-button')
+             .attr('type', 'button');
   }
 
   var mainMessage = $('<div></div>')
