@@ -141,6 +141,29 @@ body > footer {
     outline: none;
   }
 }
+#ultra-input {
+  background: transparent;
+  color: $text-color;
+  font-family: $mono;
+  border: none;
+  font-size: 5rem;
+  display: block;
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  &:focus {
+    outline: none;
+  }
+  &:-webkit-input-placeholder {
+    width: 30px;
+    text-shadow: none;
+    -webkit-text-fill-color: initial;
+  }
+}
+
 .countdown {
   display: block;
   margin: 2rem auto;
