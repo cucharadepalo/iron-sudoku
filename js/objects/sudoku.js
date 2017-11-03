@@ -191,10 +191,10 @@ Sudoku.prototype.getWinner = function() {
   var time, winner;
   if (player1.time < player2.time) {
     time = secondsToTime(player1.time);
-    winner = player1.name /*+ ':' + time*/;
+    winner = player1.name + ':</span> <span class="winner-time">' + time;
   } else if (player1.time > player2.time) {
     time = secondsToTime(player2.time);
-    winner = player2.name /*+ ':' + time*/;
+    winner = player2.name + ':</span> <span class="winner-time">' + time;
   } else {
     winner = globals.messages.draw;
   }
