@@ -8,7 +8,7 @@ var globals = {
     otherPlayers : "your turn!",
     congrats : "Congratulations!",
     time : "Your time: ",
-    winner : "And the winner is…",
+    winner : "(Drumroll) The winner is…",
     finish : "Well done!",
     error : "Ups, looks like something is wrong",
     draw : "It's a draw. That's awesome!"

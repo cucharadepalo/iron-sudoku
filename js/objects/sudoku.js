@@ -152,7 +152,8 @@ Sudoku.prototype._status = function(player) {
     clearInterval(this.chrono);
     var formatedTime = secondsToTime(this.seconds);
     player.time = this.seconds;
-    consoleMsg(globals.messages.finish);
+    var finishMsg = globals.messages.finish + '. ' + globals.messages.time + ': ' + formatedTime;
+    consoleMsg(finishMsg);
     console.log('Game Finished. Time: ' + formatedTime);
     this.seconds = 0;
   } else {
